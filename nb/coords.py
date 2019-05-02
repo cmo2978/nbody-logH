@@ -2,11 +2,11 @@ import numpy as np
 from numpy import sin, cos, sqrt, cross, dot, pi, arccos
 from numpy.linalg import norm
 
-def convert_orb_to_cart(P, primary=None):
+def convert_orb_to_cart(P):
     """
     Convert orbital elements to cartesian state vectors
     """
-    primary = primary or get_com([p for p in P.sim.particles if p != P])
+    primary = P.primary or get_com([p for p in P.sim.particles if p != P])
     mu = P.sim.G * (P.m + primary.m)
     p = P.a * (1. - P.e**2)
     r = p / (1. + P.e * cos(P.theta))
@@ -26,11 +26,11 @@ def convert_orb_to_cart(P, primary=None):
     P.r = r * np.array([x, y, z]) + primary.r
     P.p = P.m * (np.array([vx, vy, vz]) + primary.p/primary.m)
 
-def convert_cart_to_orb(P, primary=None):   # TODO: singularity checks
+def convert_cart_to_orb(P):   # TODO: singularity checks
     """
     Convert cartesian state vectors to orbital elements
     """
-    primary = primary or get_com([p for p in P.sim.particles if p != P])
+    primary = P.primary or get_com([p for p in P.sim.particles if p != P])
     mu = P.sim.G * (P.m + primary.m)
     r = P.r - primary.r
     v = P.p / P.m - primary.p / primary.m

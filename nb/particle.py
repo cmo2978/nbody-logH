@@ -46,7 +46,7 @@ class Particle:
             self.Omega = Omega or 0.
             self.omega = omega or 0.
             self.theta = theta or 0.
-            convert_orb_to_cart(self, primary)
+            convert_orb_to_cart(self)
         else:
             self.r = np.array([x or 0., y or 0., z or 0.])
             self.p = self.m * np.array([vx or 0., vy or 0., vz or 0.])

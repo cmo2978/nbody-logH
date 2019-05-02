@@ -1,2 +1,2 @@
 from .simulation import Simulation
-from .plot import *
+from .dataset import load
